@@ -8,8 +8,9 @@ import SignInScreen from './src/screens/SignInScreen';
 const App=()=>{
   return(
     <SafeAreaView style={styles.root}>
-       <Text>Hello World !!!!</Text>
+    
     <SignInScreen/>
+    <Text>Hello World !!!!</Text>
     </SafeAreaView>
   );
 };
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#003822',
     alignItems: 'center',
-    justifyContent: 'center',
+  
   },
 });
  export default App;
