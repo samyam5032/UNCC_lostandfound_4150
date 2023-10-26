@@ -26,7 +26,7 @@ const App=()=>{
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#003822',
     alignItems: 'center',
     justifyContent: 'center',
   },
