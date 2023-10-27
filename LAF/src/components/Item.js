@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
+        marginTop: 0,
+        width: '90%', 
     },
     bookmarkButton: {
         marginRight: 10,
@@ -29,16 +31,20 @@ const styles = StyleSheet.create({
     itemImage: {
         width: 50,
         height: 50,
-        marginRight: 10,
+        marginRight: 50, 
     },
     itemName: {
         flex: 1,
+        marginRight: 30,
+        color: 'black',
+        fontSize: 16, 
     },
     bookmarkContainer: {
-        padding: 5,
+        padding: 2,
         borderWidth: 1,
         borderColor: 'gray',
         borderRadius: 5,
+        paddingLeft:30,
     },
     bookmark: {
         color: 'red',
