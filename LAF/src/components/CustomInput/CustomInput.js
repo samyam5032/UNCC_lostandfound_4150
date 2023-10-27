@@ -19,7 +19,7 @@ const CustomInput =({value,setValue , placeholder,secureTextEntry})=> {
         backgroundColor:'white',
         width: 350 ,
 
-        borderColor:"#967603",
+        borderColor:"#967603",//#gold
         borderWidth:1,
         borderRadius:5,
         padding:15,
