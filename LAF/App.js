@@ -1,6 +1,8 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import SignInScreen from './src/screens/SignInScreen';
+import FAQScreen from './src/screens/FAQScreen';
+import Accordian from './src/components/Accordion';
 
 
 
@@ -9,7 +11,8 @@ const App=()=>{
   return(
     <SafeAreaView style={styles.root}>
     
-    <SignInScreen/>
+    {/* <SignInScreen/> */}
+    <FAQScreen/>
     <Text>Hello World !!!!</Text>
     </SafeAreaView>
   );

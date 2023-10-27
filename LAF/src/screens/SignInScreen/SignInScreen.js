@@ -54,6 +54,12 @@ const styles = StyleSheet.create({
         maxWidth:700,
         maxHeight:400,
     },
+    title:{
+        fontSize:24,
+        fontWeight: 'bold',
+        color:'#fff',
+        margin:10,
+    },
 });
 
 
