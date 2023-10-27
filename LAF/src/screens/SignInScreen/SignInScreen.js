@@ -2,6 +2,15 @@ import React, {useState} from 'react';
 import {View,Text, Image, StyleSheet, useWindowDimensions} from 'react-native';
 import Logo from '../../../assets/images/laf_logo.png';
 import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
+
+const onSignInPressed = () => {
+    console.warn('Sign In');
+};
+
+const onFAQPressed = () => {
+    console.warn('onFAQPressed');
+};
 
 const SignInScreen = () => {
     const[username, setUsername] = useState('');
@@ -26,7 +35,11 @@ const SignInScreen = () => {
             placeholder="Password" 
             value={password} 
             setValue={setPassword}
+            secureTextEntry={true}
             />
+
+            <CustomButton text="Sign In" onPress={onSignInPressed}/>
+            <CustomButton text="FAQ" onPress={onFAQPressed}/>
         </View>
     );
 };
