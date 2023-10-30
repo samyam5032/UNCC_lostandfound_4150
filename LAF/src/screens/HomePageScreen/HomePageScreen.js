@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
-import Item from '../components/Item';
-import Footer from '../components/Footer';
+import Header from '../../components/Header';
+import SearchBar from '../../components/SearchBar';
+import Item from '../../components/Item';
+import Footer from '../../components/Footer';
+
+
+// Import Images section 
+import BlackFlask from '../../../assets/images/blackflask.png';
+import Wallet from '../../../assets/images/wallet.png';
+import Airpods from '../../../assets/images/airpods.png';
+import iPhone from '../../../assets/images/iphone.png';
+import Mac from '../../../assets/images/goldmac.png';
+
+
 
 function Homepage() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,11 +39,11 @@ function Homepage() {
 
             <SearchBar />
             <View style={styles.items}>
-                <Item imageUrl={require('../../assets/images/blackflask.png')} itemName="Black Flask" status="PENDING" />
-                <Item imageUrl={require('../../assets/images/wallet.png')} itemName="Wallet" status="FOUND" />
-                <Item imageUrl={require('../../assets/images/airpods.png')} itemName="Airpods" status="LOST" />
-                <Item imageUrl={require('../../assets/images/iphone.png')} itemName="iPhone" status="PENDING" />
-                <Item imageUrl={require('../../assets/images/goldmac.png')} itemName="Mac" status="LOST" />
+                <Item source={BlackFlask} itemName="Black Flask" status="PENDING" />
+                <Item source={Wallet} itemName="Wallet" status="FOUND" />
+                <Item source={Airpods} itemName="Airpods" status="LOST" />
+                <Item source={iPhone} itemName="iPhone" status="PENDING" />
+                <Item source={Mac} itemName="Mac" status="LOST" />
             </View>
             <Footer />
         </View>

@@ -2,7 +2,9 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import SignInScreen from './src/screens/SignInScreen';
 import FAQScreen from './src/screens/FAQScreen';
+import HomePageScreen from './src/screens/HomePageScreen';
 import Accordian from './src/components/Accordion';
+
 
 
 
@@ -12,7 +14,8 @@ const App=()=>{
     <SafeAreaView style={styles.root}>
     
     {/* <SignInScreen/> */}
-    <FAQScreen/>
+    {/* <FAQScreen/> */}
+    <HomePageScreen/>
     <Text>Hello World !!!!</Text>
     </SafeAreaView>
   );
