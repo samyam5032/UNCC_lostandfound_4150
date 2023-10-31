@@ -16,7 +16,7 @@ import Mac from '../../../assets/images/goldmac.png';
 
 
 
-function Homepage() {
+const HomePageScreen = ({navigation})  => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -25,6 +25,7 @@ function Homepage() {
 
     return (
         <View style={styles.homepage}>
+              <Button title="Open Drawer" onPress={() => navigation.openDrawer()} />
             <Header onMenuPress={toggleMenu} />
             
             {isMenuOpen && 
@@ -73,4 +74,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Homepage;
+export default HomePageScreen;

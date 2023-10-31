@@ -4,46 +4,41 @@ import { Ionicons } from '@expo/vector-icons';
 // Import Images section 
 import logo from '../../assets/images/logo.png';
 
+
+
+
 function Header({ onMenuPress }) {
     return (
-    
-         <View style={styles.container}>
-            <View style={styles.header}>
-             <Image 
-                source={logo} 
+    <View >
+         <View style={styles.header}>
+           <Image 
+               style={{marginTop:-170,width: 420,height :120}}
+               source={logo} 
             />
             </View>
             <View style={styles.menuIcon}>
             <TouchableOpacity onPress={onMenuPress}>
-                <Ionicons name="menu" size={30} color="white" />
+                <Ionicons  name="menu" size={30} color="white" />
             </TouchableOpacity>
-           </View>
+          
+        </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        
-        backgroundColor: '#333', 
-        
-        
-    },
-    header: {
-        width:50,
-        height:50,
-        backgroundColor: '#333', 
-         alignItems: 'center',
-        marginTop:'-50%',
+    header: { 
        
-
-        flex: 1,
-        
-
+        alignItems: 'center',
     },
+    
     menuIcon: {
-        marginRight:'10%',
-        alignItems: 'right'
+      
+        marginTop:-85,
+        position:'absolute',
+        marginHorizontal:200,
+        flexDirection:'column',
+        flex:1,
         
     },
     headerText: {

@@ -1,23 +1,27 @@
 import React from 'react';
+
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import SignInScreen from './src/screens/SignInScreen';
 import FAQScreen from './src/screens/FAQScreen';
-import HomePageScreen from './src/screens/HomePageScreen';
 import Accordian from './src/components/Accordion';
+import HomePageScreen from './src/screens/HomePageScreen';
 
-
+import DrawerNavigation from './src/components/DrawerNavigation';
 
 
 
 const App=()=>{
   return(
-    <SafeAreaView style={styles.root}>
+   
+      <DrawerNavigation />
+ 
+    // <SafeAreaView style={styles.root}>
     
-    {/* <SignInScreen/> */}
-    {/* <FAQScreen/> */}
-    <HomePageScreen/>
-    <Text>Hello World !!!!</Text>
-    </SafeAreaView>
+    // {/* <SignInScreen/> */}
+    // {/* <FAQScreen/> */}
+    // <HomePageScreen/>
+    // <Text>Hello World !!!!</Text>
+    // </SafeAreaView>
   );
 };
 

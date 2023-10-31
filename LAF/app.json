@@ -6,6 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "babel":{
+      "plugins":["react-native-reanimated/plugin"]
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
