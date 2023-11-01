@@ -11,7 +11,7 @@ const Header = () => {
     <View >
          <View style={styles.header}>
            <Image 
-               style={{marginTop:-195,width: 420,height :120}}
+               style={{marginTop:-40,width: 420,height :120}}
                source={logo} 
             />
             </View>
