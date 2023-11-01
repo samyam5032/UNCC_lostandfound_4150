@@ -5,7 +5,7 @@ import SignInScreen from './src/screens/SignInScreen';
 import FAQScreen from './src/screens/FAQScreen';
 import Accordian from './src/components/Accordion';
 import HomePageScreen from './src/screens/HomePageScreen';
-
+import ProductList from './src/components/ProductList';
 import DrawerNavigation from './src/components/DrawerNavigation';
 
 
