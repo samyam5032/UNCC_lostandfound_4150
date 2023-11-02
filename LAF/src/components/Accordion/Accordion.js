@@ -25,8 +25,8 @@ const Accordion = ({ title, content }) => {
             />
           </View>
           {isExpanded && (
-            <View style={styles.content}>
-              <Text>{content}</Text>
+            <View>
+              <Text  style={styles.content}>{content}</Text>
             </View>
           )}
         </View>
@@ -50,8 +50,10 @@ const styles = StyleSheet.create({
     
     width: 370, // Set a fixed width for the sections
     borderRadius: 9,
+    
   },
   accordionBox: {
+   
     backgroundColor: 'rgba(255, 255, 255, .7);', // Low-opacity gold background
     borderRadius: 9, // Add rounded corners to the box
     
@@ -63,14 +65,19 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     backgroundColor: 'rgba(150, 118, 3, .6);',
-    borderRadius: 4
+    borderRadius: 6
   },
   title: {
     flex: 1,
+    padding:10,
+    fontSize:20,
+    fontWeight:'500',
   },
   content: {
-    
+    fontSize:18,
     padding: 10,
+    
+
   },
 });
 
