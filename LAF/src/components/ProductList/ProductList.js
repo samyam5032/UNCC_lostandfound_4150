@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CategoryFilter from '../CategoryFilter'; // Import the CategoryFilter component
-
+import SearchBar from '../SearchBar'; // Import the SearchBar component
 // Import Images section
 import BlackFlask from '../../../assets/images/blackflask.png';
 import Wallet from '../../../assets/images/wallet.png';
@@ -14,7 +14,7 @@ const ProductList = () => {
   // Dummy product data
   const products = [
     {
-      name: 'Product 1',
+      name: 'HydroFlask',
       status: 'Pending',
       category: 'Bottle',
       image: BlackFlask,
@@ -48,11 +48,17 @@ const ProductList = () => {
   // Use Navigation
   const navigation = useNavigation();
 
-  const ProductDetail = (item) => {
-    // Navigate to the product detail screen (you'll need to define it in App.js)
-    navigation.navigate('ProductDetail', { product: item });
+  //Search Bar
+  const [searchText, setSearchText] = useState(''); // State to store the search term
+  const handleSearch = (text) => {
+    setSearchText(text); // Update the search input state
   };
 
+  const ProductDetail = (item) => {
+    // Navigate to the product detail screen 
+    navigation.navigate('ProductDetail', { product: item });
+  };
+//Product  Category Filter 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filterProductsByCategory = (category) => {
@@ -76,14 +82,18 @@ const ProductList = () => {
 
   return (
     <View style={styles.container}>
+      
       <CategoryFilter
         categories={categories}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
-
-      <FlatList
-        data={filterProductsByCategory(selectedCategory)}
+   
+        <SearchBar onSearch={handleSearch} />     
+     <FlatList
+        data={filterProductsByCategory(selectedCategory).filter((product)=>
+            product.name.toLowerCase().includes(searchText.toLowerCase()) 
+             )}
         renderItem={renderProduct}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}

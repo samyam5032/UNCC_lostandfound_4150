@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet ,Button} from 'react-native';
 
-import Header from '../../components/Header'
-import SearchBar from '../../components/SearchBar';
+
+import Header from '../../components/Header';
 import Item from '../../components/Item';
 import Footer from '../../components/Footer';
 import ProductList from '../../components/ProductList';
@@ -15,12 +15,13 @@ const HomePageScreen = ({navigation})  => {
    
     return (
         <View style={styles.homepage}>
-            <Button title="Open Drawer" onPress={() => navigation.openDrawer()} />
-            <Header/>
-            <SearchBar/>
+            
+           <Header/>
+           
             
            <ProductList />
-   
+           
+           {/* <Button styles={styles.homepage} title="Open Drawer" onPress={() => navigation.openDrawer()} /> */}
             
             <Footer />
         </View>

@@ -11,7 +11,7 @@ const Header = () => {
     <View >
          <View style={styles.header}>
            <Image 
-               style={{marginTop:-40,width: 420,height :120}}
+               style={{width: 420,height :120}}
                source={logo} 
             />
             </View>
@@ -22,19 +22,13 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     header: { 
-       
-        alignItems: 'center',
+       position:'fixed',
+       top:140,
+       alignItems: 'center',
+       marginBottom:150,
+       zIndex:10 ,
     },
     
-    menuIcon: {
-      
-        marginTop:-85,
-        position:'absolute',
-        marginHorizontal:200,
-        flexDirection:'column',
-        flex:1,
-        
-    },
     headerText: {
         color: 'white',
         fontSize: 24,
