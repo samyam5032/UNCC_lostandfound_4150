@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react
 import { useNavigation } from '@react-navigation/native';
 import CategoryFilter from '../CategoryFilter'; // Import the CategoryFilter component
 import SearchBar from '../SearchBar'; // Import the SearchBar component
+import { FontAwesome} from '@expo/vector-icons';
 // Import Images section
 import BlackFlask from '../../../assets/images/blackflask.png';
 import Wallet from '../../../assets/images/wallet.png';
@@ -12,38 +13,43 @@ import Mac from '../../../assets/images/goldmac.png';
 
 const ProductList = () => {
   // Dummy product data
-  const products = [
+  const [products, setProducts] = useState([
     {
       name: 'HydroFlask',
       status: 'Pending',
       category: 'Bottle',
       image: BlackFlask,
+      isBookmarked: false
     },
     {
       name: 'Product 2',
       status: 'Lost',
       category: 'Clothing',
       image: Wallet,
+      isBookmarked: false
     },
     {
       name: 'Product 3',
       status: 'Lost',
       category: 'Accessories',
       image: Airpods,
+      isBookmarked: false
     },
     {
       name: 'Product 4',
       status: 'Lost',
       category: 'Electronics',
       image: iPhone,
+      isBookmarked: false
     },
     {
       name: 'Product 5',
       status: 'Claimed',
       category: 'Electronics',
       image: Mac,
+      isBookmarked: false
     },
-  ];
+  ]);
 
   // Use Navigation
   const navigation = useNavigation();
@@ -68,14 +74,25 @@ const ProductList = () => {
     return products.filter((product) => product.category === category);
   };
 
+  const toggleBookmark = (index) => {
+    setProducts((currentProducts) => {
+      const newProducts = [...currentProducts];
+      newProducts[index].isBookmarked = !newProducts[index].isBookmarked;
+      return newProducts;
+    });
+  };
+
   const categories = ['All', 'Electronics', 'Bottle', 'Clothing', 'Accessories'];
 
-  const renderProduct = ({ item }) => (
+  const renderProduct = ({ item, index }) => (
     <View style={styles.productBox}>
       <TouchableOpacity onPress={() => ProductDetail(item)}>
         <Image source={item.image} style={styles.productImage} />
         <Text style={styles.productName}>{item.name}</Text>
         <Text style={styles.productPrice}>{item.status}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => toggleBookmark(index)} style={styles.bookmarkButton}>
+        <FontAwesome name={item.isBookmarked ? "bookmark" : "bookmark-o"} size={24} color="black" />
       </TouchableOpacity>
     </View>
   );
@@ -94,7 +111,7 @@ const ProductList = () => {
         data={filterProductsByCategory(selectedCategory).filter((product)=>
             product.name.toLowerCase().includes(searchText.toLowerCase()) 
              )}
-        renderItem={renderProduct}
+        renderItem={({ item, index }) => renderProduct({ item, index })} 
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
         contentContainerStyle={styles.container}
@@ -132,6 +149,11 @@ const styles = StyleSheet.create({
   },
   productPrice: {
     fontSize: 16,
+  },
+  bookmarkButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });
 

@@ -2,17 +2,15 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-function Item({ imageUrl, altText, itemName, status }) {
+function Item({ imageUrl, altText, itemName, status, isBookmarked, onToggleBookmark, index }) {
     return (
         <View style={styles.item}>
-            <TouchableOpacity onPress={() => alert('Bookmark pressed!')} style={styles.bookmarkButton}>
-                <FontAwesome name="bookmark" size={24} color="black" />
+            <TouchableOpacity onPress={() => onToggleBookmark(index)} style={styles.bookmarkButton}>
+                <FontAwesome name={isBookmarked ? "bookmark" : "bookmark-o"} size={24} color="black" />
             </TouchableOpacity>
-            <Image source={imageUrl} style={styles.itemImage} />
+            <Image source={imageUrl} style={styles.itemImage} accessibilityLabel={altText} />
             <Text style={styles.itemName}>{itemName}</Text>
-            <View style={styles.bookmarkContainer}>
-                <Text style={styles.bookmark}>{status}</Text>
-            </View>
+            <Text style={styles.status}>{status}</Text>
         </View>
     );
 }
@@ -26,7 +24,9 @@ const styles = StyleSheet.create({
         width: '90%', 
     },
     bookmarkButton: {
-        marginRight: 10,
+        position: 'absolute',
+        top: 10,
+        right: 10,
     },
     itemImage: {
         width: 50,

@@ -6,6 +6,9 @@ import HomePageScreen from '../../screens/HomePageScreen';
 import SignInScreen from '../../screens/SignInScreen';
 import FAQScreen from '../../screens/FAQScreen';
 import LocationScreen from '../../screens/LocationScreen';
+//import ProfileScreen from '../../screens/ProfileScreen';     
+// <Drawer.Screen name="My Profile" component={ProfileScreen} />
+
 
 const Drawer = createDrawerNavigator();
 
