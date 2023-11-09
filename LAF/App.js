@@ -7,14 +7,14 @@ import Accordian from './src/components/Accordion';
 import HomePageScreen from './src/screens/HomePageScreen';
 import ProductList from './src/components/ProductList';
 import DrawerNavigation from './src/components/DrawerNavigation';
-
+import { BookmarkProvider } from './src/components/contexts/BookmarkContext';
 
 
 const App=()=>{
   return(
-   
+    <BookmarkProvider>
       <DrawerNavigation />
- 
+    </BookmarkProvider>
     // <SafeAreaView style={styles.root}>
     
     // {/* <SignInScreen/> */}

@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CategoryFilter from '../CategoryFilter'; // Import the CategoryFilter component
 import SearchBar from '../SearchBar'; // Import the SearchBar component
 import { FontAwesome} from '@expo/vector-icons';
+import { BookmarkContext, BookmarkProvider } from '../contexts/BookmarkContext';
+
 // Import Images section
+
 import BlackFlask from '../../../assets/images/blackflask.png';
 import Wallet from '../../../assets/images/wallet.png';
 import Airpods from '../../../assets/images/airpods.png';
@@ -22,28 +25,28 @@ const ProductList = () => {
       isBookmarked: false
     },
     {
-      name: 'Product 2',
+      name: 'Brown Wallet',
       status: 'Lost',
       category: 'Clothing',
       image: Wallet,
       isBookmarked: false
     },
     {
-      name: 'Product 3',
+      name: 'Airpods Pro',
       status: 'Lost',
       category: 'Accessories',
       image: Airpods,
       isBookmarked: false
     },
     {
-      name: 'Product 4',
+      name: 'iphone 12',
       status: 'Lost',
       category: 'Electronics',
       image: iPhone,
       isBookmarked: false
     },
     {
-      name: 'Product 5',
+      name: 'macBook Air',
       status: 'Claimed',
       category: 'Electronics',
       image: Mac,
@@ -74,7 +77,19 @@ const ProductList = () => {
     return products.filter((product) => product.category === category);
   };
 
+  const { bookmarks, addBookmark, removeBookmark } = useContext(BookmarkContext);
+
   const toggleBookmark = (index) => {
+    const product = products[index];
+    const isBookmarked = bookmarks.some((bookmark) => bookmark.name === product.name);
+
+    if (isBookmarked) {
+      removeBookmark(product.name);
+    } else {
+      addBookmark(product);
+    }
+
+    // Update the local state to reflect the change
     setProducts((currentProducts) => {
       const newProducts = [...currentProducts];
       newProducts[index].isBookmarked = !newProducts[index].isBookmarked;
