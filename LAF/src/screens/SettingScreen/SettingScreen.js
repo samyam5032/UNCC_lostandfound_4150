@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Profile from '../../../assets/images/Claudia.jpg';
+import { useNavigation } from '@react-navigation/native'; 
+import { COLORS, FONTS } from "../../../constants/Theme";
 
 
 const SECTIONS = [
@@ -32,12 +34,16 @@ const SECTIONS = [
   
 ];
 const SettingScreen = () => {
+  const navigation = useNavigation(); // Initialize navigation
+
  const [form, setForm] = useState({
     language: 'English',
-    darkMode: true,
+    darkMode: false,
     
   });
 
+
+  
   return (
     <SafeAreaView style={{ backgroundColor: '#f6f6f6' }}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -62,7 +68,7 @@ const SettingScreen = () => {
 
           <TouchableOpacity
             onPress={() => {
-              // handle onPress
+              navigation.navigate('Edit Profile'); // Navigate to the EditProfileScreen
             }}>
             <View style={styles.profileAction}>
               <Text style={styles.profileActionText}>Edit Profile</Text>
@@ -147,7 +153,7 @@ const styles = StyleSheet.create({
   sectionHeaderText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#a7a7a7',
+    color: COLORS.primary,
     textTransform: 'uppercase',
     letterSpacing: 1.2,
   },
@@ -164,7 +170,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#1d1d1d',
+    color: COLORS.primary,
     marginBottom: 6,
   },
   subtitle: {
@@ -205,7 +211,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#007bff',
+    backgroundColor: COLORS.primary,
     borderRadius: 12,
   },
   profileActionText: {

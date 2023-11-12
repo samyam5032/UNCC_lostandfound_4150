@@ -9,6 +9,8 @@ import LocationScreen from '../../screens/LocationScreen';
 import ProfileScreen from '../../screens/ProfileScreen';     
 import SettingScreen from '../../screens/SettingScreen';
 import LandingScreen from '../../screens/LandingScreen';
+import LogoutScreen from '../../screens/LogoutScreen';
+import EditProfileScreen from '../../screens/EditProfileScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -23,7 +25,8 @@ const DrawerNavigation = () => {
         <Drawer.Screen name="FAQ" component={FAQScreen} />
         <Drawer.Screen name="Setting" component={SettingScreen} />
         <Drawer.Screen name="Landing Page" component={LandingScreen} />
-
+        <Drawer.Screen name="Logout" component={LogoutScreen} />
+        <Drawer.Screen name="Edit Profile" component={EditProfileScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
