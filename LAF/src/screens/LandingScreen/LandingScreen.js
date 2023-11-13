@@ -12,6 +12,7 @@ import {
 import Swiper from 'react-native-swiper';
 import uncc from '../../../assets/images/uncc.jpg';
 
+
 const { width, height } = Dimensions.get('window');
 
 const slides = [
@@ -34,7 +35,7 @@ const slides = [
   },
 ];
 
-export default function Example() {
+const LandingScreen = () => {
   const [slide, setSlide] = useState(0);
 
   const swiper = useRef();
@@ -160,3 +161,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default LandingScreen;

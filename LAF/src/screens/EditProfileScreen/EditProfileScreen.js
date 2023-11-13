@@ -1,6 +1,7 @@
 import {
     View,
     Text,
+    StyleSheet,
     TouchableOpacity,
     ScrollView,
     Image,
@@ -13,10 +14,14 @@ import {
   import { COLORS, FONTS } from "../../../constants/Theme";
   import { MaterialIcons } from "@expo/vector-icons";
   import Profile from '../../../assets/images/Claudia.jpg';
-
+  import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+  import FeatherIcon from 'react-native-vector-icons/Feather';
   import DatePicker, { getFormatedDate } from "react-native-modern-datepicker";
   
   const EditProfile = ({ navigation }) => {
+
+
+    
     const [selectedImage, setSelectedImage] = useState(Profile);
     const [name, setName] = useState("JohnDoe");
     const [email, setEmail] = useState("JoneDoe@gmail.com");
@@ -96,10 +101,10 @@ import {
                 onSelectedChange={(date) => setSelectedStartDate(date)}
                 options={{
                   backgroundColor: COLORS.primary,
-                  textHeaderColor: "#469ab6",
+                  textHeaderColor: COLORS.accent,
                   textDefaultColor: COLORS.white,
                   selectedTextColor: COLORS.white,
-                  mainColor: "#469ab6",
+                  mainColor: COLORS.accent,
                   textSecondaryColor: COLORS.white,
                   borderColor: "rgba(122,146,165,0.1)",
                 }}
@@ -181,7 +186,7 @@ import {
               </View>
             </TouchableOpacity>
           </View>
-  
+          <KeyboardAwareScrollView>
           <View>
             <View
               style={{
@@ -257,12 +262,63 @@ import {
                 }}
               >
                 <TextInput
-                  value={password}
-                  onChangeText={(value) => setPassword(value)}
-                  editable={true}
-                  secureTextEntry
+                   autoCorrect={false}
+                   onChangeText={(value) => setPassword(value)}
+                   placeholder="********"
+                   placeholderTextColor="#878E9A"
+                   style={styles.inputControl}
+                   secureTextEntry={true}
+                   value={password}
                 />
               </View>
+              <View style={styles.inputValidation}>
+              <View style={styles.inputValidationRow}>
+                <FeatherIcon color="#292B32" name="check-circle" size={14} />
+
+                <Text style={styles.inputValidationRowText}>
+                  Minimum of 12 characters
+                </Text>
+              </View>
+              <View style={styles.inputValidationRow}>
+                <FeatherIcon color="#292B32" name="check-circle" size={14} />
+
+                <Text style={styles.inputValidationRowText}>
+                  At least 1 lower case (a-z)
+                </Text>
+              </View>
+
+              <View
+                style={[
+                  styles.inputValidationRow,
+                  styles.inputValidationRowInvalid,
+                ]}>
+                <FeatherIcon color="#292B32" name="check-circle" size={14} />
+
+                <Text style={styles.inputValidationRowText}>
+                  At least 1 upper case (A-Z)
+                </Text>
+              </View>
+              <View style={styles.inputValidationRow}>
+                <FeatherIcon color="#292B32" name="check-circle" size={14} />
+
+                <Text style={styles.inputValidationRowText}>
+                  At least 1 number (0-9)
+                </Text>
+              </View>
+              <View
+                style={[
+                  styles.inputValidationRow,
+                  styles.inputValidationRowInvalid,
+                ]}>
+                <FeatherIcon color="#292B32" name="check-circle" size={14} />
+
+                <Text style={styles.inputValidationRowText}>
+                  At least 1 symbol (%&,!#)
+                </Text>
+              </View>
+            </View>
+
+
             </View>
   
             <View
@@ -337,9 +393,40 @@ import {
           </TouchableOpacity>
   
           {renderDatePicker()}
+          </KeyboardAwareScrollView>
         </ScrollView>
       </SafeAreaView>
     );
   };
-  
+  const styles = StyleSheet.create({
+    inputControl: {
+        height: 44,
+        width: "100%",
+        borderColor: COLORS.secondaryGray,
+        borderWidth: 1,
+        borderRadius: 4,
+        marginVertical: 6,
+        justifyContent: "center",
+        paddingLeft: 8,
+      },
+      inputValidation: {
+        marginBottom: 12,
+      },
+      inputValidationRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        marginBottom: 6,
+      },
+      inputValidationRowInvalid: {
+        opacity: 0.35,
+      },
+      inputValidationRowText: {
+        fontSize: 13,
+        fontWeight: '500',
+        color: '#292b32',
+        marginLeft: 5,
+      },
+    });
+
   export default EditProfile;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View,Text, Image, StyleSheet, useWindowDimensions} from 'react-native';
+import {View,Text, Image, StyleSheet,TouchableOpacity, useWindowDimensions} from 'react-native';
 import Logo from '../../../assets/images/laf_logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
@@ -18,6 +18,7 @@ const CreateAccountScreen = () => {
     const{height}= useWindowDimensions();
     
     return(
+        
         <View style={styles.root}>
            
             <Image 
@@ -52,7 +53,13 @@ const CreateAccountScreen = () => {
             secureTextEntry={true}
             />
             <Text style={styles.spaceStyle}/>
+            <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Edit Profile'); // Navigate to the EditProfileScreen
+            }}>
             <CustomButton text="Create Account" onPress={onCreateAccount}/>
+
+            </TouchableOpacity>
         </View>
     );
 };

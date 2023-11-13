@@ -13,7 +13,7 @@ const onFAQPressed = () => {
 };
 
 const onCreateAccountPressed = () =>{
-    console.warn("Go to Create Account");
+    console.warn("Create Account");
 }
 
 const onForgotPasswordPressed = () =>{
