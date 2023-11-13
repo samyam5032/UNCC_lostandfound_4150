@@ -4,25 +4,16 @@ import Logo from '../../../assets/images/laf_logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 
-const onSignInPressed = () => {
-    console.warn('Sign In');
-};
-
-const onFAQPressed = () => {
-    console.warn('onFAQPressed');
-};
-
-const onCreateAccountPressed = () =>{
-    console.warn("Go to Create Account");
+const onCreateAccount = () =>{
+    console.warn("Created Account");
 }
 
-const onForgotPasswordPressed = () =>{
-    console.warn("Go to Forgot Password Page");
-}
-
-const SignInScreen = ({navigation}) => {
+const CreateAccountScreen = () => {
     const[username, setUsername] = useState('');
     const[password, setPassword] = useState('');
+    const[fname, setFname] = useState('');
+    const[lname, setLname] = useState('');
+    const[email, setEmail] = useState('');
 
     const{height}= useWindowDimensions();
     
@@ -33,6 +24,21 @@ const SignInScreen = ({navigation}) => {
                 source={Logo} 
                 style={[styles.logo, {height: height * 0.3}]} 
                 resizeMode="contain"  
+            />
+            <CustomInput 
+            placeholder="First Name"
+            value={fname}
+            setValue={setFname}
+            />
+            <CustomInput
+            placeholder="Last Name"
+            value={lname}
+            setValue={setLname}
+            />
+            <CustomInput
+            placeholder="Email"
+            value={email}
+            setValue={setEmail}
             />
             <CustomInput 
             placeholder="Username" 
@@ -46,11 +52,7 @@ const SignInScreen = ({navigation}) => {
             secureTextEntry={true}
             />
             <Text style={styles.spaceStyle}/>
-            <Text style={styles.textStyle}>Forgot Password</Text>
-            <Text style={styles.spaceStyle}/>
-            <CustomButton text="Sign In" onPress={onSignInPressed}/>
-            <CustomButton text="Create Account" onPress={onCreateAccountPressed}/>
-            <CustomButton text="FAQ" onPress={onFAQPressed}/>
+            <CustomButton text="Create Account" onPress={onCreateAccount}/>
         </View>
     );
 };
@@ -82,4 +84,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default SignInScreen;
+export default CreateAccountScreen;

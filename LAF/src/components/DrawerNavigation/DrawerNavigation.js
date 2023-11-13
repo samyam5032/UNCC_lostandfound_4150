@@ -11,6 +11,8 @@ import SettingScreen from '../../screens/SettingScreen';
 import LandingScreen from '../../screens/LandingScreen';
 import LogoutScreen from '../../screens/LogoutScreen';
 import EditProfileScreen from '../../screens/EditProfileScreen';
+import CreateAccountScreen from '../../screens/CreateAccountScreen';
+import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -27,8 +29,11 @@ const DrawerNavigation = () => {
         <Drawer.Screen name="Landing Page" component={LandingScreen} />
         <Drawer.Screen name="Logout" component={LogoutScreen} />
         <Drawer.Screen name="Edit Profile" component={EditProfileScreen} />
+        <Drawer.Screen name="Sign In" component={SignInScreen}/>
+        <Drawer.Screen name="Create Account" component={CreateAccountScreen}/>
+        <Drawer.Screen name="Forgot Password" component={ForgotPasswordScreen}/>
       </Drawer.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
   );
 };
 

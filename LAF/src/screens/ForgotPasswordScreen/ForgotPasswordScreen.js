@@ -4,25 +4,12 @@ import Logo from '../../../assets/images/laf_logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 
-const onSignInPressed = () => {
-    console.warn('Sign In');
-};
-
-const onFAQPressed = () => {
-    console.warn('onFAQPressed');
-};
-
-const onCreateAccountPressed = () =>{
-    console.warn("Go to Create Account");
+const onSendEmailVerification = () =>{
+    console.warn("Sent Email verification");
 }
 
-const onForgotPasswordPressed = () =>{
-    console.warn("Go to Forgot Password Page");
-}
-
-const SignInScreen = ({navigation}) => {
-    const[username, setUsername] = useState('');
-    const[password, setPassword] = useState('');
+const ForgotPasswordScreen = () => {
+    const[email, setEmail] = useState('');
 
     const{height}= useWindowDimensions();
     
@@ -35,22 +22,12 @@ const SignInScreen = ({navigation}) => {
                 resizeMode="contain"  
             />
             <CustomInput 
-            placeholder="Username" 
-            value={username} 
-            setValue={setUsername} 
-            />
-            <CustomInput  
-            placeholder="Password" 
-            value={password} 
-            setValue={setPassword}
-            secureTextEntry={true}
+            placeholder="Email" 
+            value={email} 
+            setValue={setEmail} 
             />
             <Text style={styles.spaceStyle}/>
-            <Text style={styles.textStyle}>Forgot Password</Text>
-            <Text style={styles.spaceStyle}/>
-            <CustomButton text="Sign In" onPress={onSignInPressed}/>
-            <CustomButton text="Create Account" onPress={onCreateAccountPressed}/>
-            <CustomButton text="FAQ" onPress={onFAQPressed}/>
+            <CustomButton text="Send me an verification code" onPress={onSendEmailVerification}/>
         </View>
     );
 };
@@ -82,4 +59,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default SignInScreen;
+export default ForgotPasswordScreen;
