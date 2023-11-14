@@ -102,7 +102,7 @@ const SignInScreenNew = () => {
           </View>
 
           <Text style={styles.formFooter}>
-            By clicking "Sign in" above, you agree to RealApps's
+            By clicking "Sign in" above, you agree to LostNFound's
             <Text style={{ fontWeight: '600' }}> Terms & Conditions </Text>
             and
             <Text style={{ fontWeight: '600' }}> Privacy Policy</Text>.

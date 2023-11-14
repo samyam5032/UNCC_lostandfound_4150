@@ -21,8 +21,47 @@ const RegisterScreen = () => {
     name: '',
     email: '',
     password: '',
+    confirmPassword:'',
   });
   const navigation = useNavigation(); // Initialize navigation
+
+  const [passwordRequirements, setPasswordRequirements] = useState({
+    length: true,
+    lowercase: false,
+    uppercase: false,
+    number: false,
+    symbol: false,
+  });
+
+  const validatePassword = (password) => {
+    const hasLength = password.length >= 8;
+    const hasLowercase = /[a-z]/.test(password);
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    setPasswordRequirements({
+        length: hasLength,
+        lowercase: hasLowercase,
+        uppercase: hasUppercase,
+        number: hasNumber,
+        symbol: hasSymbol,
+      });
+  
+      return hasLength && hasLowercase && hasUppercase && hasNumber && hasSymbol;
+    };
+
+    
+    const handleSignUp = () => {
+        if (validatePassword(form.password)) {
+          // Add your sign-up logic here
+          console.log('Sign up successful!');
+        } else {
+          console.log('Password does not meet requirements');
+        }
+      };
+
+
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary }}>
@@ -31,7 +70,7 @@ const RegisterScreen = () => {
           <View style={styles.headerAction}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Edit Profile');
+                navigation.navigate('Sign In New');
               }}>
               <FeatherIcon color="#fff" name="x" size={24} />
             </TouchableOpacity>
@@ -93,50 +132,173 @@ const RegisterScreen = () => {
             </View>
 
             <View style={styles.inputValidation}>
-              <View style={styles.inputValidationRow}>
-                <FeatherIcon color="#fff" name="check-circle" size={14} />
 
-                <Text style={styles.inputValidationRowText}>
-                  Minimum of 12 characters
+                {/* //For 8 characters */}
+            <View
+                style={[
+                  styles.inputValidationRow,
+                  passwordRequirements.length
+                    ? styles.inputValidationRowValid
+                    : styles.inputValidationRowInvalid,
+                ]}>
+                     <FeatherIcon
+                  color={
+                    passwordRequirements.length
+                      ? COLORS.success
+                      : COLORS.error
+                  }
+                  name={
+                    passwordRequirements.length
+                      ? 'check-circle'
+                      : 'alert-circle'
+                  }
+                  size={14}
+                />
+                
+                <Text
+                  style={[
+                    styles.inputValidationRowText,
+                    passwordRequirements.length
+                      ? styles.inputValidationRowValidText
+                      : styles.inputValidationRowInvalidText,
+                  ]}>
+                  Minimum of 8 characters
                 </Text>
               </View>
 
-              <View style={styles.inputValidationRow}>
-                <FeatherIcon color="#fff" name="check-circle" size={14} />
 
-                <Text style={styles.inputValidationRowText}>
+                  {/* For 1 lower Case */}
+              
+
+
+                <View
+                style={[
+                  styles.inputValidationRow,
+                  passwordRequirements.lowercase
+                    ? styles.inputValidationRowValid
+                    : styles.inputValidationRowInvalid,
+                ]}>
+                <FeatherIcon
+                  color={
+                    passwordRequirements.lowercase
+                      ? COLORS.success
+                      : COLORS.error
+                  }
+                  name={
+                    passwordRequirements.lowercase
+                      ? 'check-circle'
+                      : 'alert-circle'
+                  }
+                  size={14}
+                />
+                <Text
+                  style={[
+                    styles.inputValidationRowText,
+                    passwordRequirements.lowercase
+                      ? styles.inputValidationRowValidText
+                      : styles.inputValidationRowInvalidText,
+                  ]}>
                   At least 1 lower case (a-z)
                 </Text>
               </View>
 
-              <View
+                  {/* For 1 upper case */}
+             
+
+                <View
                 style={[
                   styles.inputValidationRow,
-                  styles.inputValidationRowInvalid,
+                  passwordRequirements.uppercase
+                    ? styles.inputValidationRowValid
+                    : styles.inputValidationRowInvalid,
                 ]}>
-                <FeatherIcon color="#fff" name="check-circle" size={14} />
-
-                <Text style={styles.inputValidationRowText}>
-                  At least 1 upper case (A-Z)
+                <FeatherIcon
+                  color={
+                    passwordRequirements.uppercase
+                      ? COLORS.success
+                      : COLORS.error
+                  }
+                  name={
+                    passwordRequirements.uppercase
+                      ? 'check-circle'
+                      : 'alert-circle'
+                  }
+                  size={14}
+                />
+                <Text
+                  style={[
+                    styles.inputValidationRowText,
+                    passwordRequirements.uppercase
+                      ? styles.inputValidationRowValidText
+                      : styles.inputValidationRowInvalidText,
+                  ]}>
+                   At least 1 upper case (A-Z)
                 </Text>
               </View>
 
-              <View style={styles.inputValidationRow}>
-                <FeatherIcon color= "#fff" name="check-circle" size={14} />
 
-                <Text style={styles.inputValidationRowText}>
+                {/* For 1 number */}
+              
+                 <View
+                style={[
+                  styles.inputValidationRow,
+                  passwordRequirements.number
+                    ? styles.inputValidationRowValid
+                    : styles.inputValidationRowInvalid,
+                ]}>
+                <FeatherIcon
+                  color={
+                    passwordRequirements.number
+                      ? COLORS.success
+                      : COLORS.error
+                  }
+                  name={
+                    passwordRequirements.number
+                      ? 'check-circle'
+                      : 'alert-circle'
+                  }
+                  size={14}
+                />
+                <Text
+                  style={[
+                    styles.inputValidationRowText,
+                    passwordRequirements.number
+                      ? styles.inputValidationRowValidText
+                      : styles.inputValidationRowInvalidText,
+                  ]}>
                   At least 1 number (0-9)
                 </Text>
               </View>
+                {/* For 1 symbol */}
+             
 
-              <View
+<View
                 style={[
                   styles.inputValidationRow,
-                  styles.inputValidationRowInvalid,
+                  passwordRequirements.symbol
+                    ? styles.inputValidationRowValid
+                    : styles.inputValidationRowInvalid,
                 ]}>
-                <FeatherIcon color="#fff" name="check-circle" size={14} />
-
-                <Text style={styles.inputValidationRowText}>
+                <FeatherIcon
+                  color={
+                    passwordRequirements.symbol
+                      ? COLORS.success
+                      : COLORS.error
+                  }
+                  name={
+                    passwordRequirements.symbol
+                      ? 'check-circle'
+                      : 'alert-circle'
+                  }
+                  size={14}
+                />
+                <Text
+                  style={[
+                    styles.inputValidationRowText,
+                    passwordRequirements.symbol
+                      ? styles.inputValidationRowValidText
+                      : styles.inputValidationRowInvalidText,
+                  ]}>
                   At least 1 symbol (%&,!#)
                 </Text>
               </View>
@@ -267,6 +429,32 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 16,
+  },
+  inputValidationRowValid: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginBottom: 6,
+    opacity: 0.6,
+  },
+  inputValidationRowValidText: {
+    fontSize: 13,
+    fontWeight: '500',
+    color: COLORS.success,
+    marginLeft: 5,
+  },
+  inputValidationRowInvalid: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginBottom: 6,
+    opacity: 0.35,
+  },
+  inputValidationRowInvalidText: {
+    fontSize: 13,
+    fontWeight: '500',
+    color: COLORS.error,
+    marginLeft: 5,
   },
 });
 
