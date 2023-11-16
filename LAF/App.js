@@ -11,7 +11,6 @@ import ProductList from './src/components/ProductList';
 import CreateAccountScreen from './src/screens/CreateAccountScreen';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 import DrawerNavigation from './src/components/DrawerNavigation';
-import StackNavigation from './src/components/StackNavigation/StackNavigation';
 
 //Stack navigator to facilitate switching between pages
 
