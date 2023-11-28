@@ -5,41 +5,25 @@ import { View, Text, StyleSheet ,Button} from 'react-native';
 import Header from '../../components/Header';
 import Item from '../../components/Item';
 import Footer from '../../components/Footer';
-import setProducts from '../../components/ProductList';
+import ProductList from '../../components/ProductList';
 
 
 
 
 
 const HomePageScreen = ({navigation})  => {
+   
     return (
         <View style={styles.homepage}>
-          <Header title={'Lost Items'} />
-            <FlatList
-                data={setProducts}
-                keyExtractor={(Item, index) => Item.key}
-                renderItem={({Item, index}) => {
-                    return (
-                        <View style={styles.items}>
-                            <FlatList data={products} renderItem={({ Item, index }) => {
-                                return (
-                                    <View style={styles.itemView}>
-                                        <Image 
-                                        source={{url: Item.data.imageURL}} 
-                                        style={styles.itemImage}
-                                        />
-                                        <Text>{Item.data.name}</Text>
-                                        <Text>{Item.data.description}</Text>
-                                        <Text>{Item.data.status}</Text>
-                                        <Text>{Item.data.location}</Text>
-
-                                    </View>
-                                );
-                            }} />
-                        </View>
-                    );
-                }}
-            />
+            
+           <Header/>
+           
+            
+           <ProductList />
+           
+           {/* <Button styles={styles.homepage} title="Open Drawer" onPress={() => navigation.openDrawer()} /> */}
+            
+            <Footer />
         </View>
     );
 }

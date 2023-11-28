@@ -15,7 +15,6 @@ import CreateAccountScreen from '../../screens/CreateAccountScreen';
 import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
 import RegisterScreen from '../../screens/RegisterScreen';
 import SignInScreenNew from '../../screens/SignInScreenNew';
-import UploadScreen from '../../screens/UploadScreen';
 
 
 const Drawer = createDrawerNavigator();
