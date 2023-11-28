@@ -37,8 +37,9 @@ const DrawerNavigation = () => {
         <Drawer.Screen name="Register" component={RegisterScreen}/>
         <Drawer.Screen name="Sign In New" component={SignInScreenNew}/>
       </Drawer.Navigator>
+      
       </NavigationContainer>
   );
 };
-
+ 
 export default DrawerNavigation;
