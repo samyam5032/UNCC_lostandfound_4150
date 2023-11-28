@@ -3,27 +3,15 @@ import {View,Text, Image, StyleSheet, useWindowDimensions} from 'react-native';
 import Logo from '../../../assets/images/laf_logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import {app} from "../../../database/firebase";
-import { sendPasswordResetEmail, getAuth } from 'firebase/auth';
+
+const onSendEmailVerification = () =>{
+    console.warn("Sent Email verification");
+}
 
 const ForgotPasswordScreen = () => {
     const[email, setEmail] = useState('');
 
     const{height}= useWindowDimensions();
-
-    const sendForgotPassword = () =>{
-        const auth = getAuth();
-    
-        sendPasswordResetEmail(auth,email)                  //This code needs further verification don't have time for it now but future implement
-        .then(() =>{
-            alert("Check email for password reset link!");
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
-          });
-    }
     
     return(
         <View style={styles.root}>
@@ -39,7 +27,7 @@ const ForgotPasswordScreen = () => {
             setValue={setEmail} 
             />
             <Text style={styles.spaceStyle}/>
-            <CustomButton text="Send me an verification code" onPress={sendForgotPassword}/>
+            <CustomButton text="Send me an verification code" onPress={onSendEmailVerification}/>
         </View>
     );
 };
