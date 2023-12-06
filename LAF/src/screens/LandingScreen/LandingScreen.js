@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import uncc from '../../../assets/images/uncc.jpg';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 
 
 const { width, height } = Dimensions.get('window');
@@ -36,6 +37,7 @@ const slides = [
 ];
 
 const LandingScreen = () => {
+  const navigation = useNavigation();
   const [slide, setSlide] = useState(0);
 
   const swiper = useRef();
@@ -99,7 +101,12 @@ const LandingScreen = () => {
 
               <TouchableOpacity
                 onPress={() => {
+                  if (item.action === 'Create your account') {
+                    navigation.navigate('Register'); // Navigate to RegisterScreen
+                  } else {
+
                   swiper.current.scrollTo(slide + 1, true);
+                  }
                 }}>
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>{item.action}</Text>
