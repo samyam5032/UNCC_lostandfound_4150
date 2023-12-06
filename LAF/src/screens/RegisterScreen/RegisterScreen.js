@@ -28,7 +28,7 @@ const RegisterScreen = () => {
 
 
  const [passwordRequirements, setPasswordRequirements] = useState({
-   length: true,
+   length: false,
    lowercase: false,
    uppercase: false,
    number: false,
@@ -104,7 +104,7 @@ const RegisterScreen = () => {
          <View style={styles.headerAction}>
            <TouchableOpacity
              onPress={() => {
-               navigation.navigate('Sign In New');
+               navigation.navigate('SignIn');
              }}>
              <FeatherIcon color="#fff" name="x" size={24} />
            </TouchableOpacity>
@@ -164,7 +164,9 @@ const RegisterScreen = () => {
 
              <TextInput
                autoCorrect={false}
-               onChangeText={password => setForm({ ...form, password })}
+               onChangeText={password =>{ 
+                setForm({ ...form, password });
+              validatePassword(password);}}
                placeholder="********"
                placeholderTextColor="#878E9A"
                style={styles.inputControl}

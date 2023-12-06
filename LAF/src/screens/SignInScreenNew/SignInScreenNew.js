@@ -13,6 +13,8 @@ import {  getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS, FONTS } from "../../../constants/Theme";
 import Logo from '../../../assets/images/laf_logo.png';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+import DrawerNavigation from '../../components/DrawerNavigation';
 
 
 
@@ -21,6 +23,7 @@ const INPUT_OFFSET = 110;
 
 
 const SignInScreenNew = () => {
+  const navigation = useNavigation(); 
  const [form, setForm] = useState({
    email: '',
    password: '',
@@ -34,8 +37,9 @@ const SignInScreenNew = () => {
      // Signed in
      alert("You are logged in!");
      const user = userCredential.user;
-     // ...
-   })
+     // Navigate to the home screen using the drawer navigator name
+     navigation.navigate('Home');
+    })
    .catch((error) => {
      const errorCode = error.code;
      const errorMessage = error.message;
@@ -98,7 +102,9 @@ const SignInScreenNew = () => {
              value={form.password}
            />
          </View>
-
+         <TouchableOpacity onPress={() => navigation.navigate('Forgot Password')}>
+         <Text style={styles.forgotPasswordText}>Forgot Password</Text>
+         </TouchableOpacity>
 
          <View style={styles.formAction}>
            <TouchableOpacity
@@ -202,6 +208,12 @@ const styles = StyleSheet.create({
    color: '#929292',
    textAlign: 'center',
  },
+ forgotPasswordText: {
+  color: COLORS.accent,
+  textAlign: 'right',
+  textDecorationLine: 'underline',
+ 
+},
  input: {
    marginBottom: 16,
  },

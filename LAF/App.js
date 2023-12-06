@@ -17,9 +17,16 @@ import StackNavigation from './src/components/StackNavigation/StackNavigation';
 
 const App = () => {
   return (
+
+    <NavigationContainer>
       <BookmarkProvider>
-      <DrawerNavigation/>
+      <StackNavigation />
       </BookmarkProvider>
+    </NavigationContainer>
+    
+    
+      // <DrawerNavigation/>
+      // </BookmarkProvider>
     // <SafeAreaView style={styles.root}>
 
     // {/* <SignInScreen/> */}
