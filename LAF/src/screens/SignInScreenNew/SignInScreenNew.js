@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Toast from 'react-native-toast-message';
 import {
   StyleSheet,
   SafeAreaView,
@@ -34,20 +35,27 @@ const SignInScreenNew = () => {
   const signInMethod = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, form.email, form.password)
-      .then((userCredential) => {
-        // Signed in
-        alert("You are logged in!");
-        const user = userCredential.user;
-
-        // Navigate to the home screen using the drawer navigator name
-        
-        navigation.replace('Home');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
+    .then((userCredential) => {
+      const user = userCredential.user;
+      const welcomeName = user.displayName || user.email;
+  
+      // Show toast message
+      Toast.show({
+        type: 'success',
+        position: 'center',
+        text1: `Welcome, ${welcomeName}!`,
+        visibilityTime: 4000,
       });
+  
+      navigation.replace('Home');
+    })
+    .catch((error) => {
+      Toast.show({
+        type: 'error',
+        text1: 'Login failed',
+        text2: error.message,
+      });
+    });
   }
 
 

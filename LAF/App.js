@@ -12,6 +12,8 @@ import CreateAccountScreen from './src/screens/CreateAccountScreen';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 import DrawerNavigation from './src/components/DrawerNavigation';
 import StackNavigation from './src/components/StackNavigation/StackNavigation';
+import Toast from 'react-native-toast-message'; // Import Toast
+
 
 //Stack navigator to facilitate switching between pages
 
@@ -22,7 +24,9 @@ const App = () => {
       <BookmarkProvider>
       <StackNavigation />
       </BookmarkProvider>
+      <Toast ref={(ref) => Toast.setRef(ref)} /> 
     </NavigationContainer>
+
     
     
       // <DrawerNavigation/>
