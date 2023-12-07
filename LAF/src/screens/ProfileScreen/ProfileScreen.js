@@ -1,16 +1,19 @@
 import React, { useContext } from 'react';
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, Button } from 'react-native';
 import { BookmarkContext } from '../../components/contexts/BookmarkContext';
 
 const ProfileScreen = () => {
-  const { bookmarks } = useContext(BookmarkContext);
+  const { bookmarks, removeBookmark } = useContext(BookmarkContext);
 
   const renderBookmarkItem = ({ item }) => (
     <View style={styles.bookmarkItem}>
       <Image source={item.image} style={styles.bookmarkImage} />
       <Text style={styles.bookmarkName}>{item.name}</Text>
       <Text style={styles.bookmarkStatus}>{item.status}</Text>
-      {}
+      <Button 
+        title="Unbookmark" 
+        onPress={() => removeBookmark(item.id)} // Assuming each item has an 'id' field
+      />
     </View>
   );
 
@@ -20,7 +23,7 @@ const ProfileScreen = () => {
       <FlatList
         data={bookmarks}
         renderItem={renderBookmarkItem}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item) => item.id.toString()} // Assuming each item has an 'id' field
       />
     </View>
   );
