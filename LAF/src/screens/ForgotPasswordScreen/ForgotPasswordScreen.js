@@ -4,7 +4,7 @@ import Logo from '../../../assets/images/laf_logo.png';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import {app} from "../../../database/firebase";
-import { sendPasswordResetEmail, getAuth } from 'firebase/auth';
+import { sendPasswordResetEmail, getAuth, fetchSignInMethodsForEmail } from 'firebase/auth';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import { COLORS, FONTS } from "../../../constants/Theme";
@@ -20,14 +20,15 @@ const ForgotPasswordScreen = () => {
 
     const sendForgotPassword = () =>{
         const auth = getAuth();
-    
-        sendPasswordResetEmail(auth,email)                  //This code needs further verification don't have time for it now but future implement
+
+        sendPasswordResetEmail(auth,email)     
         .then(() =>{
             alert("Check email for password reset link!");
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            alert(errorMessage);
             // ..
           });
     }
