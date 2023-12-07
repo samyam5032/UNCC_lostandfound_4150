@@ -11,8 +11,9 @@ import {
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Profile from '../../../assets/images/Claudia.jpg';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { COLORS, FONTS } from "../../../constants/Theme";
+import { getAuth, signOut } from "firebase/auth";
 
 
 const SECTIONS = [
@@ -21,7 +22,7 @@ const SECTIONS = [
     items: [
       { id: 'language', icon: 'globe', label: 'Language', type: 'select' },
       { id: 'darkMode', icon: 'moon', label: 'Dark Mode', type: 'toggle' },
-      
+
     ],
   },
   {
@@ -31,19 +32,39 @@ const SECTIONS = [
       { id: 'contact', icon: 'mail', label: 'Contact Us', type: 'link' },
     ],
   },
-  
+
 ];
 const SettingScreen = () => {
+  var auth = getAuth();
+  var user = auth.currentUser;                  //Initializing user
   const navigation = useNavigation(); // Initialize navigation
 
- const [form, setForm] = useState({
+  const [form, setForm] = useState({
     language: 'English',
     darkMode: false,
-    
+
   });
 
 
-  
+  const displayName = () => {
+    if (user != null) {
+      return user.displayName
+    }
+    else {
+      return "User not logged In";
+    }
+  }
+
+  const displayEmail = () => {
+    if (user != null) {
+      return user.email;
+    }
+    else {
+      return "User is not logged In";
+    }
+
+  }
+
   return (
     <SafeAreaView style={{ backgroundColor: '#f6f6f6' }}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -62,9 +83,9 @@ const SettingScreen = () => {
             style={styles.profileAvatar}
           />
 
-          <Text style={styles.profileName}>John Doe (Model)</Text>
+          <Text style={styles.profileName}>{displayName()}</Text>
 
-          <Text style={styles.profileEmail}>john.doe@mail.com</Text>
+          <Text style={styles.profileEmail}>{displayEmail()}</Text>
 
           <TouchableOpacity
             onPress={() => {
@@ -135,6 +156,25 @@ const SettingScreen = () => {
           </View>
         ))}
       </ScrollView>
+      <TouchableOpacity
+        onPress={() => {
+
+          //This feature logs you out of the firebase 
+          signOut(auth).then(() => {
+            //Signout successful
+            console.warn("You have succesfully been signed out");
+            navigation.replace("Home");
+          })
+            .catch((error) => {
+              //An error happened 
+              console.warn("Not succesfully signed out");
+              console.warn(error);
+            });
+        }}>
+        <View style={styles.profileAction}>
+          <Text style={styles.profileActionText}>Sign Out</Text>
+        </View>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }

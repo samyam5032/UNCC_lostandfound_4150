@@ -14,6 +14,8 @@ import EditProfileScreen from '../../screens/EditProfileScreen';
 import CreateAccountScreen from '../../screens/CreateAccountScreen';
 import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
 import RegisterScreen from '../../screens/RegisterScreen';
+import SignInScreenNew from '../../screens/SignInScreenNew';
+import {getAuth} from "firebase/auth";
 
 
 
@@ -23,19 +25,24 @@ const Drawer = createDrawerNavigator();
 
 
 const DrawerNavigation = () => {
-  return (
-   
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomePageScreen} />
-        <Drawer.Screen name="My Profile" component={ProfileScreen} />
-        <Drawer.Screen name="Location" component={LocationScreen} />
-        <Drawer.Screen name="FAQ" component={FAQScreen} />
-        <Drawer.Screen name="Setting" component={SettingScreen} />
-       
-       
-       </Drawer.Navigator>
-   
 
+  const auth = getAuth();
+  const user = auth.currentUser;
+  
+  return (
+      <Drawer.Navigator initialRouteName="Home">
+           <Drawer.Screen name="Home" component={HomePageScreen} />
+         <Drawer.Screen name="Location" component={LocationScreen} />
+         <Drawer.Screen name="FAQ" component={FAQScreen} />
+        {user? (
+          <>
+        <Drawer.Screen name="My Profile" component={ProfileScreen} />
+        <Drawer.Screen name="Setting" component={SettingScreen} />
+        </>
+        ) : (
+        <Drawer.Screen name="Log In" component = {SignInScreenNew}/>
+        )}
+       </Drawer.Navigator>
 
     /*
       * Old code for old screens
