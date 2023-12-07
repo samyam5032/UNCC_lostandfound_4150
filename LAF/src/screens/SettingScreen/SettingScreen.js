@@ -11,9 +11,9 @@ import {
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Profile from '../../../assets/images/Claudia.jpg';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { COLORS, FONTS } from "../../../constants/Theme";
-import { getAuth, signOut } from "firebase/auth";
+//import { useNavigation, useFocusEffect } from '@react-navigation/native';
+//import { COLORS, FONTS } from "../../../constants/Theme";
+//import { getAuth, signOut } from "firebase/auth";
 
 import profile from '../../../assets/images/Claudia.jpg';
 import { useNavigation } from '@react-navigation/native';
@@ -43,7 +43,7 @@ const SettingScreen = () => {
   var user = auth.currentUser;                  //Initializing user
   const navigation = useNavigation(); // Initialize navigation
 
-  const auth = getAuth();
+ // const auth = getAuth();
   const [form, setForm] = useState({
     language: 'English',
     darkMode: false,
