@@ -15,6 +15,10 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { COLORS, FONTS } from "../../../constants/Theme";
 import { getAuth, signOut } from "firebase/auth";
 
+import profile from '../../../assets/images/Claudia.jpg';
+import { useNavigation } from '@react-navigation/native';
+import { COLORS, FONTS } from "../../../constants/Theme";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const SECTIONS = [
   {
@@ -39,31 +43,26 @@ const SettingScreen = () => {
   var user = auth.currentUser;                  //Initializing user
   const navigation = useNavigation(); // Initialize navigation
 
+  const auth = getAuth();
   const [form, setForm] = useState({
     language: 'English',
     darkMode: false,
 
   });
-
-
-  const displayName = () => {
-    if (user != null) {
-      return user.displayName
-    }
-    else {
-      return "User not logged In";
-    }
-  }
-
-  const displayEmail = () => {
-    if (user != null) {
-      return user.email;
-    }
-    else {
-      return "User is not logged In";
-    }
-
-  }
+  const [userDetails, setUserDetails] = useState({ name: '', email: '' ,profileImage:'',});
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, update the state with user details
+        setUserDetails({ name: user.displayName, email: user.email , profileImage: user.photoURL,});
+      } else {
+        // No user is signed in.
+        setUserDetails({ name: '', email: '' });
+      }
+    });
+    // Cleanup the subscription on unmount
+    return () => unsubscribe();
+  }, [auth]);
 
   return (
     <SafeAreaView style={{ backgroundColor: '#f6f6f6' }}>
@@ -77,21 +76,21 @@ const SettingScreen = () => {
         </View>
 
         <View style={styles.profile}>
-          <Image
-            alt=""
-            source={Profile}
-            style={styles.profileAvatar}
-          />
+        <Image
+             
+              source={{ uri: userDetails.profileImage|| profile }}
+              style={styles.profileAvatar}
+            />
 
-          <Text style={styles.profileName}>{displayName()}</Text>
+          <Text style={styles.profileName}>{userDetails.name}</Text>
 
-          <Text style={styles.profileEmail}>{displayEmail()}</Text>
-
+          <Text style={styles.profileEmail}>{userDetails.email}</Text>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Edit Profile'); // Navigate to the EditProfileScreen
             }}>
             <View style={styles.profileAction}>
+           
               <Text style={styles.profileActionText}>Edit Profile</Text>
 
               <FeatherIcon color="#fff" name="edit" size={16} />
@@ -135,7 +134,7 @@ const SettingScreen = () => {
 
                         {type === 'toggle' && (
                           <Switch
-                            onChange={val => setForm({ ...form, [id]: val })}
+                            onValueChange={(val) => setForm({ ...form, [id]: val })}
                             value={form[id]}
                           />
                         )}

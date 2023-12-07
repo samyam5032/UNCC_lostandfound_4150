@@ -7,8 +7,9 @@ import {
   Image,
   TextInput,
   Modal,
+  Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import { COLORS, FONTS } from "../../../constants/Theme";
@@ -16,18 +17,22 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Profile from '../../../assets/images/Claudia.jpg';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import DatePicker, { getFormatedDate } from "react-native-modern-datepicker";
+import { getAuth, onAuthStateChanged, updateProfile, updateEmail, reauthenticateWithCredential, updatePassword ,updatePhotoURL} from 'firebase/auth';
 
 const EditProfile = ({ navigation }) => {
+  const auth = getAuth();
 
   const [form, setForm] = useState({
-    name: "JohnDoe",
-    email: "JoneDoe@gmail.com",
-    password: "randompassword",
+    
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword:"",
+    photoURL: "",
   });
 
 
-  const [password, setPassword] = useState("randompassword");
+  const [password, setPassword] = useState("");
   const [passwordRequirements, setPasswordRequirements] = useState({
     length: false,
     lowercase: false,
@@ -37,7 +42,7 @@ const EditProfile = ({ navigation }) => {
   });
 
   const validatePassword = (password) => {
-    const hasLength = password.length >= 12;
+    const hasLength = password.length >= 8;
     const hasLowercase = /[a-z]/.test(password);
     const hasUppercase = /[A-Z]/.test(password);
     const hasNumber = /\d/.test(password);
@@ -59,24 +64,9 @@ const EditProfile = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(Profile);
 
 
-  const [country, setCountry] = useState("UnitedStates");
 
-  const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
-  const today = new Date();
-  const startDate = getFormatedDate(
-    today.setDate(today.getDate() + 1),
-    "YYYY/MM/DD"
-  );
-  const [selectedStartDate, setSelectedStartDate] = useState("01/01/1990");
-  const [startedDate, setStartedDate] = useState("11/12/2023");
+  
 
-  const handleChangeStartDate = (propDate) => {
-    setStartedDate(propDate);
-  };
-
-  const handleOnPressStartDate = () => {
-    setOpenStartDatePicker(!openStartDatePicker);
-  };
 
   const handleImageSelection = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -92,65 +82,66 @@ const EditProfile = ({ navigation }) => {
       setSelectedImage(result.assets[0].uri);
     }
   };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setForm({
+          name: user.displayName || "",
+          email: user.email || "",
+          photoURL: user.photoURL || "",
+          password: "",
+          confirmPassword: "",
+        });
+      } else {
+        // No user is signed in.
+        setForm({
+          name: "",
+          email: "",
+          photoURL: "",
+          password: "",
+          confirmPassword: "",
+        });
+      }
+    });
 
-  function renderDatePicker() {
-    return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={openStartDatePicker}
-      >
-        <View
-          style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <View
-            style={{
-              margin: 20,
-              backgroundColor: COLORS.primary,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 20,
-              padding: 35,
-              width: "90%",
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 4,
-              elevation: 5,
-            }}
-          >
-            <DatePicker
-              mode="calendar"
-              minimumDate={startDate}
-              selected={startedDate}
-              onDateChanged={handleChangeStartDate}
-              onSelectedChange={(date) => setSelectedStartDate(date)}
-              options={{
-                backgroundColor: COLORS.primary,
-                textHeaderColor: COLORS.accent,
-                textDefaultColor: COLORS.white,
-                selectedTextColor: COLORS.white,
-                mainColor: COLORS.accent,
-                textSecondaryColor: COLORS.white,
-                borderColor: "rgba(122,146,165,0.1)",
-              }}
-            />
+    // Cleanup the subscription on unmount
+    return () => unsubscribe();
+  }, [auth]);
+  const handleSaveChange = async () => {
+    try {
+      // Check if the password and confirmPassword match if password is being changed
+      if (form.password !== form.confirmPassword) {
+        Alert.alert("Error", "Passwords do not match");
+        return;
+      }
 
-            <TouchableOpacity onPress={handleOnPressStartDate}>
-              <Text style={{ ...FONTS.body3, color: COLORS.white }}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-    );
-  }
+      // Update the user's profile
+      await updateProfile(auth.currentUser, {
+        displayName: form.name,
+        photoURL: form.photoURL,
+      });
+
+
+      
+
+
+      // Optionally, update the email and password
+      if (form.email !== auth.currentUser.email) {
+        // Update email
+        await updateEmail(auth.currentUser, form.email);
+      }
+
+      if (form.password) {
+        // Update password
+        await updatePassword(auth.currentUser, form.password);
+      }
+
+      Alert.alert("Success", "User profile updated successfully!");
+    } catch (error) {
+      console.error("Error updating profile:", error.message);
+      Alert.alert("Error", "Failed to update user profile");
+    }
+  };
 
   return (
     <SafeAreaView
@@ -244,6 +235,8 @@ const EditProfile = ({ navigation }) => {
                   value={form.name}
                   onChangeText={(value) => setForm({ ...form, name: value })}
                   editable={true}
+                  placeholder="Enter your name"
+                  placeholderTextColor="#878E9A"
                 />
               </View>
             </View>
@@ -271,6 +264,8 @@ const EditProfile = ({ navigation }) => {
                   value={form.email}
                   onChangeText={(value) => setForm({ ...form, email: value })}
                   editable={true}
+                  placeholder="Enter your email"
+                  placeholderTextColor="#878E9A"
                 />
               </View>
             </View>
@@ -514,6 +509,7 @@ const EditProfile = ({ navigation }) => {
               alignItems: "center",
               justifyContent: "center",
             }}
+            onPress={handleSaveChange}
           >
             <Text
               style={{
@@ -525,7 +521,7 @@ const EditProfile = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
 
-          {renderDatePicker()}
+        
         </KeyboardAwareScrollView>
       </ScrollView>
     </SafeAreaView>
