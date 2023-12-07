@@ -32,7 +32,7 @@ const slides = [
     title: "Here's the great news",
     message:
       'From Lost to Found -Making It Happen',
-    action: 'Create your account',
+    action: 'Sign Into Your Account',
   },
 ];
 
@@ -101,8 +101,8 @@ const LandingScreen = () => {
 
               <TouchableOpacity
                 onPress={() => {
-                  if (item.action === 'Create your account') {
-                    navigation.navigate('Register'); // Navigate to RegisterScreen
+                  if (item.action === 'Sign Into Your Account') {
+                    navigation.navigate('SignIn'); // Navigate to RegisterScreen
                   } else {
 
                   swiper.current.scrollTo(slide + 1, true);
