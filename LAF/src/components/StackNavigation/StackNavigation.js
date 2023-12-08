@@ -16,6 +16,8 @@ import EditProfileScreen from '../../screens/EditProfileScreen';
 import LogoutScreen from '../../screens/LogoutScreen';
 import ReportBugScreen from '../../screens/ReportBugScreen';
 import ContactUsScreen from '../../screens/ContactUsScreen';
+import AdminRegisterScreen from '../../screens/AdminRegisterScreen';
+import AdminSignInScreen from '../../screens/AdminSignInScreen';
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
@@ -24,8 +26,10 @@ const StackNavigation = () => {
             <Stack.Screen name="LandingScreen" component={LandingScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Home" component={DrawerNavigation}  options={{ headerShown: false }}/>
             <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="AdminRegister" component={AdminRegisterScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="FAQScreen" component={FAQScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="SignIn" component={SignInScreenNew}  options={{ headerShown: false }}/>
+            <Stack.Screen name="AdminSignIn" component={AdminSignInScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Edit Profile" component={EditProfileScreen}  options={{ headerShown: false }}  />
             <Stack.Screen name="Sign Out" component={LogoutScreen}  options={{ headerShown: false }}  />

@@ -1,5 +1,5 @@
 import { initializeApp,} from "firebase/app";
-import { initializeAuth, getReactNativePersistence} from "firebase/auth";
+import { initializeAuth, getReactNativePersistence, getAuth, onAuthStateChanged } from "firebase/auth";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 // firebase config key setup
 
@@ -21,5 +21,22 @@ const app = initializeApp(firebaseConfig);
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
 });
+
+const checkIfAdmin = () => {
+  return new Promise((resolve, reject) => {
+    const authInstance = getAuth();
+    onAuthStateChanged(authInstance, (user) => {
+      if (user) {
+        user.getIdTokenResult().then((idTokenResult) => {
+          resolve(!!idTokenResult.claims.admin);
+        }).catch((error) => {
+          reject(error);
+        });
+      } else {
+        resolve(false); // No user is signed in
+      }
+    });
+  });
+};
 
 export default { app, auth };

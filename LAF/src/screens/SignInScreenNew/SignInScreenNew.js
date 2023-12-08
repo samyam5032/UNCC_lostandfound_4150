@@ -17,6 +17,7 @@ import { COLORS, FONTS } from "../../../constants/Theme";
 import Logo from '../../../assets/images/laf_logo.png';
 import { useNavigation} from '@react-navigation/native'; // Import useNavigation hook
 import DrawerNavigation from '../../components/DrawerNavigation';
+import AdminSignInScreen from '../AdminSignInScreen';
 
 
 
@@ -30,6 +31,10 @@ const SignInScreenNew = () => {
     email: '',
     password: '',
   });
+
+  const navigateToAdminsignin = () => {
+    navigation.navigate('AdminSignInScreen');
+  };
 
 
   const signInMethod = () => {
@@ -116,6 +121,9 @@ const SignInScreenNew = () => {
           <View style = {styles.linkSpacer}>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text style={styles.CreateAccountText}>Create a new Account</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Adminsignin')}>
+            <Text style={styles.adminLoginText}>Admin Login</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Forgot Password')}>
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
@@ -231,14 +239,20 @@ const styles = StyleSheet.create({
     color: COLORS.accent,
     textDecorationLine: 'underline',
     backgroundColor: "transparent",
-    transform: 'translateX(47em)'
+    marginLeft: 5,
   },
+
   CreateAccountText: {
     color: COLORS.accent,
-    textAlign: 'left',
     textDecorationLine: 'underline',
     alignItems: 'flex-start',
-    transform: 'translateX(-47em)'
+    marginRight: 5,
+  },
+
+  adminLoginText: {
+    color: COLORS.accent,
+    textDecorationLine: 'underline',
+    alignItems: 'flex-start',
   },
 
   input: {
