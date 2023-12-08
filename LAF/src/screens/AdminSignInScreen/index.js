@@ -1,1 +1,1 @@
-export {default} from './Adminsignin';
+export {default} from './AdminSignInScreen';

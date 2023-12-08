@@ -32,8 +32,8 @@ const SignInScreenNew = () => {
     password: '',
   });
 
-  const navigateToAdminsignin = () => {
-    navigation.navigate('AdminSignInScreen');
+  const navigateToAdminSignInScreen = () => {
+    navigation.navigate('AdminSignIn');
   };
 
 
@@ -122,7 +122,7 @@ const SignInScreenNew = () => {
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text style={styles.CreateAccountText}>Create a new Account</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Adminsignin')}>
+          <TouchableOpacity onPress= {navigateToAdminSignInScreen}>
             <Text style={styles.adminLoginText}>Admin Login</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Forgot Password')}>
