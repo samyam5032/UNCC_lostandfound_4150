@@ -64,6 +64,7 @@ const SettingScreen = () => {
     return () => unsubscribe();
   }, [auth]);
 
+  
   return (
     <SafeAreaView style={{ backgroundColor: '#f6f6f6' }}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -157,18 +158,18 @@ const SettingScreen = () => {
       </ScrollView>
       <TouchableOpacity
         onPress={() => {
-
-          //This feature logs you out of the firebase 
-          signOut(auth).then(() => {
-            //Signout successful
-            console.warn("You have succesfully been signed out");
-            navigation.replace("Home");
-          })
-            .catch((error) => {
-              //An error happened 
-              console.warn("Not succesfully signed out");
-              console.warn(error);
-            });
+          navigation.navigate('Sign Out'); // Navigate to the EditProfileScreen
+          // //This feature logs you out of the firebase 
+          // signOut(auth).then(() => {
+          //   //Signout successful
+          //   console.warn("You have succesfully been signed out");
+          //   navigation.replace("Home");
+          // })
+          //   .catch((error) => {
+          //     //An error happened 
+          //     console.warn("Not succesfully signed out");
+          //     console.warn(error);
+          //   });
         }}>
         <View style={styles.profileAction}>
           <Text style={styles.profileActionText}>Sign Out</Text>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -7,12 +7,49 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import { COLORS, FONTS } from "../../../constants/Theme";
 
-
+import { getAuth, onAuthStateChanged,signOut } from 'firebase/auth';
 import Profile from '../../../assets/images/Claudia.jpg';
+import { useNavigation } from '@react-navigation/native';
 
 const LogoutScreen = () => {
-    
+  const navigation = useNavigation(); // Initialize navigation
+
+  const auth = getAuth();
+  const [userDetails, setUserDetails] = useState({
+    name: '',
+    profileImage: '', 
+  });
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, update the state with user details
+        setUserDetails({
+          name: user.displayName || '',
+          profileImage: user.photoURL || '', // Set the profile image here
+        });
+      } else {
+        // No user is signed in.
+        setUserDetails({
+          name: '',
+          profileImage: '',
+        });
+      }
+    });
+     // Cleanup the subscription on unmount
+     return () => unsubscribe();
+    }, [auth]);
+  
+    const handleLogout = async () => {
+      try {
+        await signOut(auth);
+        navigation.navigate('LandingScreen'); 
+      } catch (error) {
+        console.error('Error logging out:', error.message);
+      }
+    };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.container}>
@@ -21,13 +58,13 @@ const LogoutScreen = () => {
             <Image
               alt=""
               style={styles.alertAvatar}
-              source={Profile}
+              source={{ uri: userDetails.profileImage }}
             />
 
             <Text style={styles.alertTitle}>
               Log out of
               {'\n'}
-              @JohnDoe
+              @{userDetails.name}
             </Text>
 
             <Text style={styles.alertMessage}>
@@ -37,9 +74,7 @@ const LogoutScreen = () => {
           </View>
 
           <TouchableOpacity
-            onPress={() => {
-              // handle onPress
-            }}>
+            onPress={handleLogout}>
             <View style={styles.btn}>
               <Text style={styles.btnText}>Yes, log me out</Text>
             </View>
@@ -48,7 +83,7 @@ const LogoutScreen = () => {
           <View style={{ marginTop: 8 }}>
             <TouchableOpacity
               onPress={() => {
-                // handle onPress
+                navigation.navigate('Setting');
               }}>
               <View style={styles.btnSecondary}>
                 <Text style={styles.btnSecondaryText}>Cancel</Text>
@@ -113,8 +148,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderWidth: 1,
-    backgroundColor: '#f75249',
-    borderColor: '#f75249',
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
   },
   btnText: {
     fontSize: 17,
@@ -137,7 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 24,
     fontWeight: '600',
-    color: '#f75249',
+    color: COLORS.primary,
   },
 });
 export default LogoutScreen;

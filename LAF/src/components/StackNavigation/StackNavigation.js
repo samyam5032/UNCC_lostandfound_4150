@@ -13,6 +13,7 @@ import SignInScreenNew from '../../screens/SignInScreenNew';
 import DrawerNavigation from '../DrawerNavigation';
 import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
 import EditProfileScreen from '../../screens/EditProfileScreen';
+import LogoutScreen from '../../screens/LogoutScreen';
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
@@ -25,6 +26,7 @@ const StackNavigation = () => {
             <Stack.Screen name="SignIn" component={SignInScreenNew}  options={{ headerShown: false }}/>
             <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Edit Profile" component={EditProfileScreen}  options={{ headerShown: false }}  />
+            <Stack.Screen name="Sign Out" component={LogoutScreen}  options={{ headerShown: false }}  />
         </Stack.Navigator>
     );
 };
