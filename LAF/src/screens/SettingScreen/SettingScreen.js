@@ -64,10 +64,26 @@ const SettingScreen = () => {
     return () => unsubscribe();
   }, [auth]);
 
-  
+  useEffect(() => {
+    // Set navigation options dynamically
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: form.darkMode ? '#333' : '#fff',
+      },
+      headerTintColor: form.darkMode ? '#fff' : '#000',
+    });
+  }, [form.darkMode, navigation]);
+
+  const darkModeStyles = {
+    backgroundColor: '#333',
+    color: '#fff',
+    // Add other styles for Dark Mode as needed
+  };
+
   return (
-    <SafeAreaView style={{ backgroundColor: '#f6f6f6' }}>
-      <ScrollView contentContainerStyle={styles.container}>
+    // <SafeAreaView style={{ backgroundColor: '#f6f6f6' }}>
+    <SafeAreaView style={[styles.container, form.darkMode && { backgroundColor: '#333' }]}>
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View style={styles.header}>
           <Text style={styles.title}>Settings</Text>
 
@@ -80,12 +96,12 @@ const SettingScreen = () => {
         <Image
              
               source={{ uri: userDetails.profileImage|| profile }}
-              style={styles.profileAvatar}
+              style={[styles.profileAvatar, form.darkMode && { borderColor: '#fff', backgroundColor: "#444" }]}
             />
 
-          <Text style={styles.profileName}>{userDetails.name}</Text>
+          <Text style={[styles.profileName, form.darkMode && { color: '#fff', backgroundColor: "#fff" }]}>{userDetails.name}</Text>
 
-          <Text style={styles.profileEmail}>{userDetails.email}</Text>
+          <Text style={[styles.profileEmail, form.darkMode && { color: '#ccc', backgroundColor: "#fff" }]}>{userDetails.email}</Text>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Edit Profile'); // Navigate to the EditProfileScreen
@@ -112,6 +128,7 @@ const SettingScreen = () => {
                     style={[
                       styles.rowWrapper,
                       index === 0 && { borderTopWidth: 0 },
+                      form.darkMode && { backgroundColor: '#444' },
                     ]}>
                     <TouchableOpacity
                       onPress={() => {
@@ -123,13 +140,16 @@ const SettingScreen = () => {
                       }}>
                       <View style={styles.row}>
                         <FeatherIcon
-                          color="#616161"
+                          color={form.darkMode ? '#000' : '#000'}
                           name={icon}
                           style={styles.rowIcon}
                           size={22}
                         />
 
-                        <Text style={styles.rowLabel}>{label}</Text>
+                        <Text style={[
+                          styles.rowLabel,
+                          form.darkMode && 
+                          { color: '#fff' }]}>{label}</Text>
 
                         <View style={styles.rowSpacer} />
 
@@ -146,7 +166,7 @@ const SettingScreen = () => {
 
                         {(type === 'select' || type === 'link') && (
                           <FeatherIcon
-                            color="#ababab"
+                            color={form.darkMode ? '#fff' : '#ababab'}
                             name="chevron-right"
                             size={22}
                           />
@@ -175,8 +195,8 @@ const SettingScreen = () => {
           //     console.warn(error);
           //   });
         }}>
-        <View style={styles.profileAction}>
-          <Text style={styles.profileActionText}>Sign Out</Text>
+        <View style={[styles.profileAction, form.darkMode && { backgroundColor: '#444' }]}>
+          <Text style={[styles.profileActionText, form.darkMode && { color: '#fff' }]}>Sign Out</Text>
         </View>
       </TouchableOpacity>
     </SafeAreaView>
