@@ -18,6 +18,7 @@ import ReportBugScreen from '../../screens/ReportBugScreen';
 import ContactUsScreen from '../../screens/ContactUsScreen';
 import AdminRegisterScreen from '../../screens/AdminRegisterScreen';
 import AdminSignInScreen from '../../screens/AdminSignInScreen';
+import SubmitClaimScreen from '../../screens/SubmitClaimScreen';
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
@@ -35,6 +36,8 @@ const StackNavigation = () => {
             <Stack.Screen name="Sign Out" component={LogoutScreen}  options={{ headerShown: false }}  />
             <Stack.Screen name="Report Bug" component={ReportBugScreen}  options={{ headerShown: false }}  />
             <Stack.Screen name="Contact Us" component={ContactUsScreen}  options={{ headerShown: false }}  />
+            <Stack.Screen name="File A Claim" component={SubmitClaimScreen}  options={{ headerShown: false }}  />
+
 
         </Stack.Navigator>
     );

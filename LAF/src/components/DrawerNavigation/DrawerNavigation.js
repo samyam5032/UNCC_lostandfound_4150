@@ -15,6 +15,7 @@ import CreateAccountScreen from '../../screens/CreateAccountScreen';
 import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
 import RegisterScreen from '../../screens/RegisterScreen';
 import SignInScreenNew from '../../screens/SignInScreenNew';
+import SubmitClaimScreen from '../../screens/SubmitClaimScreen';
 import {getAuth} from "firebase/auth";
 
 
@@ -34,6 +35,7 @@ const DrawerNavigation = () => {
            <Drawer.Screen name="Home" component={HomePageScreen} />
          <Drawer.Screen name="Location" component={LocationScreen} />
          <Drawer.Screen name="FAQ" component={FAQScreen} />
+         <Drawer.Screen name="Submit A Claim" component={SubmitClaimScreen} />
         {user? (
           <>
         <Drawer.Screen name="My Profile" component={ProfileScreen} />
