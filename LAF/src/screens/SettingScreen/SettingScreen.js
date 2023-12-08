@@ -115,7 +115,11 @@ const SettingScreen = () => {
                     ]}>
                     <TouchableOpacity
                       onPress={() => {
-                        // handle onPress
+                        if (id === 'bug') {
+                          navigation.navigate('Report Bug');
+                        }else if (id === 'contact') {
+                          navigation.navigate('Contact Us'); 
+                        }
                       }}>
                       <View style={styles.row}>
                         <FeatherIcon

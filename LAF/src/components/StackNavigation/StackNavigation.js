@@ -14,6 +14,8 @@ import DrawerNavigation from '../DrawerNavigation';
 import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen';
 import EditProfileScreen from '../../screens/EditProfileScreen';
 import LogoutScreen from '../../screens/LogoutScreen';
+import ReportBugScreen from '../../screens/ReportBugScreen';
+import ContactUsScreen from '../../screens/ContactUsScreen';
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
@@ -27,6 +29,9 @@ const StackNavigation = () => {
             <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Edit Profile" component={EditProfileScreen}  options={{ headerShown: false }}  />
             <Stack.Screen name="Sign Out" component={LogoutScreen}  options={{ headerShown: false }}  />
+            <Stack.Screen name="Report Bug" component={ReportBugScreen}  options={{ headerShown: false }}  />
+            <Stack.Screen name="Contact Us" component={ContactUsScreen}  options={{ headerShown: false }}  />
+
         </Stack.Navigator>
     );
 };
